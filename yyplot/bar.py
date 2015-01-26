@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from utility import axis_helper
 from utility import title_helper
+from utility import background_helper
 
-def bar(x, df, alpha=0.7, title=None, legend=False, 
+def bar( x, df, alpha=0.7, title=None, legend=False, 
         color='skyblue', edgecolor='w',xlabel=None, 
         xlabelsize=20, x_fontsize=16, y_fontsize=20, ypad=12):
 
@@ -43,6 +44,6 @@ def bar(x, df, alpha=0.7, title=None, legend=False,
     ax.set_xticklabels(xticks_labels, fontsize=x_fontsize, alpha=alpha)
     
     ax.set_ylabel('')
+    background_helper(ax, color='w')
 
-
-
+    return ax
