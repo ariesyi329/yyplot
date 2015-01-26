@@ -37,6 +37,44 @@ def axis_helper(ax, left=True, bottom=True, right=False, top=False,
     if xtick is False:
         ax.xaxis.set_ticks_position('none')
 
+def axis_label_helper(ax, xlabel=None, ylabel=None,
+                      color='grey', alpha=1, fontsize=12):
+    if xlabel is None:
+        xlabel=''
+    if ylabel is None:
+        ylabel=''
+    ax.set_xlabel(xlabel, color=color, alpha=alpha, fontsize=fontsize)
+    ax.set_ylabel(ylabel, color=color, alpha=alpha, fontsize=fontsize)
+
+def background_helper(ax, color='#d9d9d9', alpha=0.2,
+                      xgrid=False, ygrid=False, grid_color='w',
+                      grid_alpha=0.7, grid_ls='-', grid_lw=0.5):
+    ax.patch.set_facecolor(color)
+    ax.patch.set_alpha(alpha)
+    
+    if xgrid is True:
+        ax.xaxis.grid(xgrid, color=grid_color, alpha=grid_alpha,
+                      linestyle=grid_ls, linewidth=grid_lw)    
+    if ygrid is True:
+        ax.yaxis.grid(ygrid, color=grid_color, alpha=grid_alpha,
+                      linestyle=grid_ls, linewidth=grid_lw)
+
+def legend_helper(title=None, loc='center left', 
+                  bbox_to_anchor=(1,0.5),
+                  frame_lw=0.5, frame_fc='w', frame_ec='grey',
+                  frame_alpha=1, text_color='grey'):
+    if title is None:
+        title = ''
+    legend=plt.legend(title=title, loc=loc,
+                      bbox_to_anchor=bbox_to_anchor)
+    frame=legend.get_frame()
+    frame.set_linewidth(frame_lw)
+    frame.set_facecolor(frame_fc)
+    frame.set_edgecolor(frame_ec)
+    frame.set_alpha(frame_alpha)
+    for text in legend.get_texts():
+        text.set_color(text_color)
+
 def colorbar_helper(customcmap, vmin, vmax, interval, label, 
                     cb_alpha=0.05, cb_aspect=16, cb_shrink=0.4,
                     tick_labelsize=14, tick_alpha=0.7, label_fontsize=20,
