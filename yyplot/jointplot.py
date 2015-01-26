@@ -16,7 +16,7 @@ def jointplot(x, y, data=None, kind='hex', stat_func=None,
         Attributes:
             x,y: data
             data: dataframe when x, y are variable names
-            kind: main fig kind {“scatter”|“reg”|“resid”|“kde”|“hex”}
+            kind: main fig kind {'scatter'|'reg'|'resid'|'kde'|'hex'}
             stat_func: stat functions
             maincolor: color for main plot
             size: figure size
