@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.lines import Line2D
 
 def title_helper(ax, title, fontsize=20, color='k', alpha=0.8, 
                  ha='center', va='bottom', xloc=0.5, yloc=1.05):
@@ -74,6 +75,45 @@ def legend_helper(title=None, loc='center left',
     frame.set_alpha(frame_alpha)
     for text in legend.get_texts():
         text.set_color(text_color)
+
+
+#TO DO!!!
+def barheight_helper(ax, y, df, color, alpha=0.7,
+                     hmin=0.2, hmax=0.5, title=None):
+    if title is None:
+        title = ''
+
+    hmin = hmin,
+    hmax = hmax,
+    xmin = min(df[y])
+    xmax = max(df[y])
+    deltah = hmax+hmin
+    deltax = xmax+xmin
+
+    f = lambda x: hmin + deltah * (x-xmin) / deltax
+    hs = [f(x) for x in df[y]]
+
+    for container in ax.containers:
+        for i, child in container.get_children:
+            chind.set_y(child.get_y() + child.get_height()/2. - hs[i]/2)
+            plt.setp(child, height=hs[i])
+
+    l1 = Line2D([], [], linewidth=hmin*72*0.8, color=color, alpha=alpha)
+    l2 = Line2D([], [], linewidth=f(np.mean(df[columns]))*72*0.8, color=color, alpha=alpha)
+    l3 = Line2D([], [], linewidth=hmax*72*0.8, color=color, alpha=alpha)
+
+    labels = ["{0:.2f}".format(l) for l in xmin, 
+              np.mean(df[columns]), xmax]
+
+    leg = ax.legend([l1,l2,l3], labels, ncol=3, frameon=False,
+                    fontsize=16, bbox_to_anchor=[1.1, 0.11], 
+                    handlelength=2, handletextpad=1, columnspacing=2,
+                    title=title)
+
+    plt.setp(leg.get_title(), fontsize=20, alpha=alpha)
+    leg.get_title().set_position((0,10))
+    [plt.setp(label, alpha=alpha) for label in leg.get_text()]
+
 
 def colorbar_helper(customcmap, vmin, vmax, interval, label, 
                     cb_alpha=0.05, cb_aspect=16, cb_shrink=0.4,
